@@ -15,17 +15,30 @@ Instructions:
 4. Print your results in a clear, formatted way.
 """
 
-# TODO: Create the datasets - up to you to fill in the data
-temperatures = []
-city_population = {}
+#  Create the datasets
+temperatures = [15.5, 17.0, 16.3, 18.2, 19.0, 20.1, 21.3]  # Daily temperatures in °C
 
-# TODO: Compute aggregates
-average_temperature = 0
-largest_city = ""
-largest_population = 0
-total_population = 0
+# Type annotation removes Pylance warnings
+city_population: dict[str, int] = {
+    "Riga": 632614,
+    "Vilnius": 588412,
+    "Tallinn": 437619,
+    "Warsaw": 1793579,
+    "Helsinki": 658864
+}
 
-# TODO: Print results
-print("Average temperature:", average_temperature)
-print("Largest city:", largest_city, "-", largest_population)
-print("Total population:", total_population)
+#  Compute aggregates
+average_temperature = sum(temperatures) / len(temperatures)
+
+# Use lambda to make Pylance understand the key function clearly
+largest_city = max(city_population, key=lambda c: city_population[c])
+largest_population = city_population[largest_city]
+smallest_city = min(city_population, key=lambda c: city_population[c])
+smallest_population = city_population[smallest_city]
+total_population = sum(city_population.values())
+
+#  Print results
+print(f"Average temperature: {average_temperature:.2f}°C")
+print(f"Largest city: {largest_city} - {largest_population:,}")
+print(f"Smallest city: {smallest_city} - {smallest_population:,}")
+print(f"Total population: {total_population:,}")
